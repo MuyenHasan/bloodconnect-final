@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BloodConnect</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="inner container">
+      <div class="brand"><span class="drop" aria-hidden="true"></span> BloodConnect</div>
+      <ul>
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link" href="find-donor.html">Find Donor</a></li>
+          <li><a class="link" href="request-blood.html">Request Blood</a></li>
+          <li><a class="link" href="about.html">About</a></li>
+          <li><a class="link" href="dashboard.html">Dashboard</a></li>
+          <li><a class="link" href="admin.html">Admin</a></li>
+      </ul>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark mode">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" 
+          xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+          <span id="themeLabel" style="font-weight:700">Light Mode</span>
+        </button>
+        <a class="btn" href="request-blood.html">Request Blood</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+
+  <section class="hero">
+    <h1>Find Blood Donors Fast.<br><span style="color:var(--link-color)">Save Lives.</span></h1>
+    <p class="small">Search nearby donors by blood type and location. Post a request and notify matching donors instantly.</p>
+    <div class="section searchbar" style="margin-top:14px;">
+      <select aria-label="Blood type">
+        <option>Select blood type</option>
+        <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+      </select>
+      <input class="input" placeholder="Your location (e.g., Dhanmondi, Dhaka)">
+      <a class="btn" href="find-donor.html">Find Donors</a>
+    </div>
+
+    <div class="section kpis" style="margin-top:22px;">
+      <div class="stat"><div class="num">342</div><div class="small">Active Donors</div></div>
+      <div class="stat"><div class="num">87</div><div class="small">Requests Today</div></div>
+      <div class="stat"><div class="num">125</div><div class="small">Successful Matches</div></div>
+    </div>
+    <div class="section cta-row">
+      <a class="btn" href="dashboard.html">Become a Donor</a>
+      <a class="btn secondary" href="about.html">Learn about donation</a>
+    </div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>
+  </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BloodConnect</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="inner container">
+      <div class="brand"><span class="drop" aria-hidden="true"></span> BloodConnect</div>
+      <ul>
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link" href="find-donor.html">Find Donor</a></li>
+          <li><a class="link" href="request-blood.html">Request Blood</a></li>
+          <li><a class="link" href="about.html">About</a></li>
+          <li><a class="link" href="dashboard.html">Dashboard</a></li>
+          <li><a class="link" href="admin.html">Admin</a></li>
+      </ul>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark mode">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+          <span id="themeLabel" style="font-weight:700">Light Mode</span>
+        </button>
+        <a class="btn" href="request-blood.html">Request Blood</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+
+  <h2>Request Blood</h2>
+  <p class="help">Post a request. Matching donors near your hospital will be notified.</p>
+  <form class="section" onsubmit="alert('This is a prototype. In a real app this would submit to the server.'); return false;">
+    <div class="form-grid">
+      <div><label>Your Name</label><input class="input" required placeholder="Full Name"></div>
+      <div><label>Contact Number</label><input class="input" required placeholder="e.g., 017XXXXXXXX"></div>
+      <div><label>Blood Type Needed</label>
+        <select required>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option>
+          <option>AB-</option><option>O+</option><option>O-</option>
+        </select>
+      </div>
+      <div><label>Urgency</label>
+        <select><option>Emergency</option><option>Within 24 hours</option><option>Flexible</option></select>
+      </div>
+      <div style="grid-column:1/-1">
+        <label>Hospital & Address</label>
+        <input class="input" placeholder="Hospital name, area">
+      </div>
+      <div style="grid-column:1/-1">
+        <label>Additional Notes</label>
+        <textarea rows="4" placeholder="Any details donors should know"></textarea>
+      </div>
+    </div>
+    <div class="section cta-row">
+      <button class="btn" type="submit">Submit Request</button>
+      <a class="btn secondary" href="find-donor.html">Find Donors Manually</a>
+    </div>
+  </form>
+
+  </main>
+  <footer class="footer">
+    <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>
+  </footer>
+  
+  <script src="script.js"></script>
+
+</body>
+</html>

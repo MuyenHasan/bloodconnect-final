@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BloodConnect</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="inner container">
+      <div class="brand"><span class="drop" aria-hidden="true"></span> BloodConnect</div>
+      <ul>
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link" href="find-donor.html">Find Donor</a></li>
+          <li><a class="link" href="request-blood.html">Request Blood</a></li>
+          <li><a class="link" href="about.html">About</a></li>
+          <li><a class="link" href="dashboard.html">Dashboard</a></li>
+          <li><a class="link" href="admin.html">Admin</a></li>
+      </ul>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark mode">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+          <span id="themeLabel" style="font-weight:700">Light Mode</span>
+        </button>
+        <a class="btn" href="request-blood.html">Request Blood</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+    <h2>Donor Dashboard</h2>
+  <div class="grid section">
+    <div class="card" style="grid-column: span 5">
+      <h3>Your Profile</h3>
+      <div class="form-grid">
+        <div><label>Name</label><input class="input" value="Your Name"></div>
+        <div><label>Blood Type</label>
+          <select><option>O+</option><option>O-</option><option selected>B-</option></select>
+        </div>
+        <div><label>Location</label><input class="input" value="Dhanmondi, Dhaka"></div>
+        <div><label>Phone</label><input class="input" value="017XXXXXXXX"></div>
+        <div><label>Availability</label><select><option selected>Available</option><option>Not available</option></select></div>
+      </div>
+      <div class="section cta-row" style="margin-top:12px">
+        <a class="btn" href="#">Save Changes</a>
+      </div>
+    </div>
+    <div class="card" style="grid-column: span 7">
+      <h3>Incoming Requests</h3>
+      <div style="overflow:auto">
+      <table class="table">
+        <thead><tr><th>Patient</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Actions</th></tr></thead>
+        <tbody><tr><td>Rafiq</td><td><span class="badge">B-</span></td><td>Square Hospital</td><td>Emergency</td>
+            <td><a class="btn" href="#">Accept</a> <a class="btn secondary" href="#">Decline</a></td></tr>
+          <tr><td>Sumaiya</td><td><span class="badge">B-</span></td><td>IBN Sina, Dhanmondi</td><td>Within 24h</td>
+            <td><a class="btn" href="#">Accept</a> <a class="btn secondary" href="#">Decline</a></td></tr></tbody>
+      </table>
+      </div></div></div>
+  <div class="card section">
+    <h3>Donation History</h3>
+    <table class="table">
+      <thead><tr><th>Date</th><th>Hospital</th><th>Patient</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>2025-04-12</td><td>Popular Diagnostic, Dhanmondi</td><td>—</td><td><span class="badge">Completed</span></td></tr>
+        <tr><td>2024-11-03</td><td>BSMMU</td><td>—</td><td><span class="badge">Completed</span></td></tr>
+      </tbody>
+    </table></div>
+  </main>
+  <footer class="footer">
+    <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

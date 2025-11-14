@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BloodConnect</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="inner container">
+      <div class="brand"><span class="drop" aria-hidden="true"></span> BloodConnect</div>
+      <ul>
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link" href="find-donor.html">Find Donor</a></li>
+          <li><a class="link" href="request-blood.html">Request Blood</a></li>
+          <li><a class="link" href="about.html">About</a></li>
+          <li><a class="link" href="dashboard.html">Dashboard</a></li>
+          <li><a class="link" href="admin.html">Admin</a></li>
+      </ul>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark mode">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+          <span id="themeLabel" style="font-weight:700">Light Mode</span>
+        </button>
+        <a class="btn" href="request-blood.html">Request Blood</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+
+  <h2>Admin Panel</h2>
+  <div class="grid section">
+    <div class="card" style="grid-column: span 6">
+      <h3>Users</h3>
+      <table class="table">
+        <thead><tr><th>Name</th><th>Blood</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>Akash Rahman</td><td>B-</td><td>Mirpur</td><td>
+            <span class="badge green">Active</span></td><td><a class="btn secondary" href="#">Suspend</a></td></tr>
+          <tr><td>Nusrat Jahan</td><td>O+</td><td>Uttara</td><td>
+            <span class="badge green">Active</span></td><td><a class="btn secondary" href="#">Suspend</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="grid-column: span 6">
+      <h3>Requests</h3>
+      <table class="table">
+        <thead><tr><th>Requester</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>Rafiq</td><td>B-</td><td>Square Hospital</td><td>Emergency</td><td><a class="btn" href="#">Mark Matched</a></td></tr>
+          <tr><td>Sumaiya</td><td>B-</td><td>IBN Sina</td><td>Within 24h</td><td><a class="btn" href="#">Mark Matched</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+  <footer class="footer">
+    <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
