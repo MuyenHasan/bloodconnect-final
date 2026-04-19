@@ -1,12 +1,6 @@
-﻿// ============================================
-// BloodConnect - Clean JavaScript
-// No API - Simple & Fast (~200 lines)
-// ============================================
+﻿(function() {
 
-(function() {
-  // ============================================
   // THEME TOGGLE
-  // ============================================
   var root = document.documentElement;
   var toggleBtn = document.getElementById('themeToggle');
   var themeLabel = document.getElementById('themeLabel');
@@ -40,10 +34,7 @@
       applyTheme(isDark ? 'dark' : 'light');
     });
   }
-
-  // ============================================
   // HIGHLIGHT CURRENT NAVIGATION
-  // ============================================
   document.addEventListener('DOMContentLoaded', function() {
     var currentPage = window.location.pathname.split('/').pop();
     document.querySelectorAll('.nav a.link').forEach(function(link) {
@@ -59,10 +50,7 @@
     initModal();
     initTabs();
   });
-
-  // ============================================
   // TOAST NOTIFICATIONS
-  // ============================================
   function showToast(message, type, duration) {
     type = type || 'info';
     duration = duration || 3000;
@@ -92,10 +80,8 @@
   window.bloodConnect = {
     showToast: showToast
   };
-
-  // ============================================
   // SEARCH FILTER
-  // ============================================
+ 
   function initSearchFilter() {
     var searchBtn = document.getElementById('searchBtn');
     var bloodSelect = document.getElementById('bloodTypeFilter');
@@ -151,10 +137,7 @@
       });
     });
   }
-
-  // ============================================
   // STATS COUNTER ANIMATION
-  // ============================================
   function initStatsCounter() {
     document.querySelectorAll('.stat .num').forEach(function(stat) {
       var text = stat.textContent;
@@ -176,9 +159,7 @@
     });
   }
 
-  // ============================================
   // MODAL SYSTEM
-  // ============================================
   function initModal() {
     var modalOverlay = document.createElement('div');
     modalOverlay.className = 'modal-overlay';
@@ -213,9 +194,7 @@
     }
   };
 
-  // ============================================
-  // CONTACT DONOR MODAL
-  // ============================================
+  
   window.contactDonor = function(donorId) {
     openModal(
       '<h3>Contact Donor</h3>' +
@@ -248,9 +227,7 @@
     window.location.href = 'tel:' + phone;
   };
 
-  // ============================================
-  // TABS FUNCTIONALITY
-  // ============================================
+  
   function initTabs() {
     document.querySelectorAll('.tab').forEach(function(tab) {
       tab.addEventListener('click', function() {
@@ -278,9 +255,7 @@
     });
   }
 
-  // ============================================
-  // BLOOD REQUEST FORM
-  // ============================================
+  
   var bloodRequestForm = document.getElementById('bloodRequestForm');
   if (bloodRequestForm) {
     bloodRequestForm.addEventListener('submit', function(e) {
@@ -300,7 +275,7 @@
 
   
   // DASHBOARD PROFILE SAVE
-  
+
   var saveProfileBtn = document.getElementById('saveProfileBtn');
   if (saveProfileBtn) {
     saveProfileBtn.addEventListener('click', function() {
