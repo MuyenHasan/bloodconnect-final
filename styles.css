@@ -950,6 +950,511 @@ select:valid:not(:placeholder-shown) {
   padding: 0 4px;
 }
 
+/* ============================================
+   RESPONSIVE STYLES - Mobile & Tablet
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .hero {
+    padding: 40px 0 24px;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .searchbar {
+    flex-direction: column;
+  }
+  
+  .searchbar .input-group {
+    width: 100%;
+  }
+  
+  .searchbar .input-group:last-child {
+    flex: none;
+  }
+  
+  .emergency-banner {
+    flex-wrap: wrap;
+  }
+  
+  .emergency-banner .icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .donor-card .details {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  
+  .tab {
+    white-space: nowrap;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Large (480px - 767px) */
+@media (max-width: 767px) {
+  .container {
+    padding: 16px;
+  }
+  
+  /* Navigation */
+  .nav .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  
+  .nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+    margin-top: 8px;
+    align-items: flex-start;
+  }
+  
+  .nav a.link {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+  
+  .nav a.link.active {
+    background: var(--primary);
+    color: #fff;
+  }
+  
+  .nav > .inner > div:last-child {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .theme-toggle {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  /* Hero */
+  .hero {
+    padding: 24px 0 20px;
+  }
+  
+  .hero h1 {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+  
+  .hero p {
+    font-size: 14px;
+  }
+  
+  /* Emergency Banner */
+  .emergency-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .emergency-banner .icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .emergency-banner .btn {
+    width: 100%;
+  }
+  
+  /* Search Bar */
+  .searchbar {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .searchbar .input-group {
+    min-width: 100%;
+  }
+  
+  .searchbar label {
+    font-size: 11px;
+  }
+  
+  .searchbar .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Stats KPIs */
+  .kpis {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .stat {
+    padding: 16px;
+  }
+  
+  .stat .num {
+    font-size: 28px;
+  }
+  
+  .stat .icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  /* Filter Pills */
+  .filter-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter-pill {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  
+  /* Donor Cards */
+  .donor-card {
+    padding: 16px;
+  }
+  
+  .donor-card .header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .donor-card .name {
+    font-size: 16px;
+  }
+  
+  .donor-card .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .donor-card .details {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    font-size: 13px;
+  }
+  
+  .donor-card .actions {
+    flex-direction: column;
+  }
+  
+  .donor-card .actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Forms */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  label {
+    font-size: 14px;
+  }
+  
+  .input, select, textarea {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  /* Tables */
+  .table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table th, 
+  .table td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  
+  /* Tabs */
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .tab {
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  
+  /* Modal */
+  .modal {
+    width: 95%;
+    padding: 16px;
+    margin: 16px;
+  }
+  
+  .modal h3 {
+    font-size: 18px;
+  }
+  
+  /* Cards Grid */
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Results Header */
+  .results-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .results-header .sort {
+    width: 100%;
+  }
+  
+  .results-header select {
+    flex: 1;
+  }
+  
+  /* Footer */
+  .footer .inner {
+    padding: 16px;
+    font-size: 12px;
+  }
+  
+  /* Toast */
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    font-size: 13px;
+  }
+  
+  /* FAB Button */
+  .fab {
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+  
+  /* Blood Type Selector */
+  .blood-type-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Section titles */
+  h2 {
+    font-size: 22px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  .help {
+    font-size: 12px;
+  }
+  
+  .small {
+    font-size: 12px;
+  }
+  
+  .cta-row {
+    flex-direction: column;
+  }
+  
+  .cta-row .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile Small (320px - 479px) */
+@media (max-width: 479px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .brand {
+    font-size: 16px;
+  }
+  
+  .brand .drop {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .hero h1 {
+    font-size: 22px;
+  }
+  
+  .hero p {
+    font-size: 13px;
+  }
+  
+  .stat .num {
+    font-size: 24px;
+  }
+  
+  .stat {
+    padding: 12px;
+  }
+  
+  .btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .filter-pill {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  
+  .donor-card {
+    padding: 12px;
+  }
+  
+  .donor-card .name {
+    font-size: 15px;
+  }
+  
+  .modal {
+    padding: 12px;
+    margin: 12px;
+  }
+  
+  .input, select, textarea {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  
+  .tab {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  
+  .blood-type-selector .type {
+    padding: 8px 6px;
+  }
+  
+  .blood-type-selector .type .blood {
+    font-size: 14px;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 16px 0;
+  }
+  
+  .hero h1 {
+    font-size: 20px;
+  }
+  
+  .emergency-banner {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .modal {
+    max-height: 80vh;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .brand .drop {
+    box-shadow: 0 0 0 1px var(--primary);
+  }
+  
+  .btn {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .nav a.link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-pill {
+    min-height: 36px;
+  }
+  
+  .tab {
+    min-height: 44px;
+  }
+  
+  input, select, textarea {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .donor-card .actions .btn {
+    min-height: 40px;
+  }
+}
+
 /* Quick Actions Floating Button */
 .fab {
   position: fixed;
