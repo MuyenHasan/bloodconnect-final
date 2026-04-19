@@ -1,7 +1,3 @@
-// ============================================
-// BloodConnect - Simple JavaScript
-// ============================================
-
 (function(){
   // --- Theme Toggle ---
   const root = document.documentElement;
@@ -54,9 +50,7 @@
     initTabs();
   });
 
-  // ============================================
-  // Toast Notifications
-  // ============================================
+ 
   function showToast(message, type = 'info', duration = 3000) {
     document.querySelectorAll('.toast').forEach(t => t.remove());
     
@@ -76,9 +70,7 @@
     showToast: showToast
   };
 
-  // ============================================
-  // Search Filter (Simple)
-  // ============================================
+  
   function initSearchFilter() {
     const searchBtn = document.getElementById('searchBtn');
     const bloodSelect = document.getElementById('bloodTypeFilter');
@@ -94,7 +86,7 @@
         setTimeout(() => {
           searchBtn.classList.remove('loading');
           searchBtn.disabled = false;
-          showToast('Search functionality - connect to a backend for real results', 'info');
+          showToast('Search functionality ready - add backend for real data', 'info');
         }, 500);
       });
       
@@ -106,9 +98,7 @@
     }
   }
 
-  // ============================================
-  // Request Actions (Accept/Decline)
-  // ============================================
+  
   function initRequestActions() {
     document.querySelectorAll('table').forEach(table => {
       const rows = table.querySelectorAll('tbody tr');
@@ -137,9 +127,6 @@
     });
   }
 
-  // ============================================
-  // Stats Counter Animation
-  // ============================================
   function initStatsCounter() {
     const statNumbers = document.querySelectorAll('.stat .num');
     statNumbers.forEach(stat => {
@@ -308,9 +295,19 @@
     pill.addEventListener('click', function() {
       document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
       this.classList.add('active');
-      showToast('Filter applied - connect to backend for real filtering', 'info');
+      showToast('Filter applied', 'info');
     });
   });
+
+  window.filterByPill = function(btn) {
+    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    showToast('Filtering donors...', 'info');
+  };
+
+  window.sortDonors = function(value) {
+    showToast('Sorting by ' + value, 'info');
+  };
 
   // ============================================
   // Accept/Decline Request Functions
@@ -330,11 +327,313 @@
   };
 
 })();(function(){
-  // ============================================
-  // BloodConnect - Simulated Backend Server
-  // ============================================
+  // --- Theme Toggle ---
+  const root = document.documentElement;
+  const toggleBtn = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
 
-  // --- API Server Simulation ---
+  function applyTheme(theme){
+    if(theme === 'dark'){
+      root.classList.add('dark');
+      toggleBtn?.setAttribute('aria-pressed','true');
+      if(themeLabel) themeLabel.textContent = 'Dark Mode';
+    } else {
+      root.classList.remove('dark');
+      toggleBtn?.setAttribute('aria-pressed','false');
+      if(themeLabel) themeLabel.textContent = 'Light Mode';
+    }
+  }
+
+  const saved = localStorage.getItem('bc-theme');
+  if(saved){
+    applyTheme(saved);
+  } else {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', function(e){
+      const isDark = document.documentElement.classList.toggle('dark');
+      const theme = isDark ? 'dark' : 'light';
+      localStorage.setItem('bc-theme', theme);
+      applyTheme(theme);
+    });
+  }
+
+  // --- Highlight current navigation link ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.nav a.link').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+    
+    // Initialize features
+    initSearchFilter();
+    initRequestActions();
+    initStatsCounter();
+    initModal();
+    initTabs();
+  });
+
+  function showToast(message, type = 'info', duration = 3000) {
+    document.querySelectorAll('.toast').forEach(t => t.remove());
+    
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.animation = 'slideIn 0.3s ease reverse';
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+  }
+
+  window.bloodConnect = {
+    showToast: showToast
+  };
+
+  function initSearchFilter() {
+    const searchBtn = document.getElementById('searchBtn');
+    const bloodSelect = document.getElementById('bloodTypeFilter');
+    const locationInput = document.getElementById('locationFilter');
+    
+    if (searchBtn && bloodSelect && locationInput) {
+      searchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        searchBtn.classList.add('loading');
+        searchBtn.disabled = true;
+        
+        setTimeout(() => {
+          searchBtn.classList.remove('loading');
+          searchBtn.disabled = false;
+          showToast('Search functionality - connect to a backend for real results', 'info');
+        }, 500);
+      });
+      
+      locationInput?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchBtn.click();
+        }
+      });
+    }
+  }
+
+  function initRequestActions() {
+    document.querySelectorAll('table').forEach(table => {
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const acceptBtn = row.querySelector('.btn:not(.secondary)');
+        const declineBtn = row.querySelector('.btn.secondary');
+        
+        if (acceptBtn) {
+          acceptBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showToast('Request accepted!', 'success');
+            this.closest('tr').style.opacity = '0.5';
+            this.disabled = true;
+          });
+        }
+        
+        if (declineBtn) {
+          declineBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showToast('Request declined', 'info');
+            this.closest('tr').style.opacity = '0.5';
+            this.disabled = true;
+          });
+        }
+      });
+    });
+  }
+
+
+  function initStatsCounter() {
+    const statNumbers = document.querySelectorAll('.stat .num');
+    statNumbers.forEach(stat => {
+      const text = stat.textContent;
+      const target = parseInt(text.replace(/[^0-9]/g, ''));
+      if (!isNaN(target) && target > 0) {
+        animateCounter(stat, target, text);
+      }
+    });
+  }
+
+  function animateCounter(element, target, originalText) {
+    let current = 0;
+    const increment = target / 30;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        element.textContent = originalText;
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(current);
+      }
+    }, 50);
+  }
+
+  function initModal() {
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    modalOverlay.id = 'modalOverlay';
+    modalOverlay.innerHTML = `
+      <div class="modal">
+        <button class="close" onclick="closeModal()">&times;</button>
+        <div class="modal-content"></div>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+  }
+
+  window.openModal = function(content) {
+    const modal = document.getElementById('modalOverlay');
+    if (modal) {
+      modal.querySelector('.modal-content').innerHTML = content;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeModal = function() {
+    const modal = document.getElementById('modalOverlay');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.contactDonor = function(donorId) {
+    openModal(`
+      <h3>Contact Donor</h3>
+      <div class="form-grid">
+        <div>
+          <label>Your Name</label>
+          <input class="input" id="contactName" placeholder="Your full name">
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input class="input" id="contactPhone" placeholder="Your phone number">
+        </div>
+        <div style="grid-column: 1/-1">
+          <label>Message</label>
+          <textarea class="input" id="contactMessage" rows="3" placeholder="I need blood donation for..."></textarea>
+        </div>
+      </div>
+      <div class="cta-row" style="margin-top: 16px">
+        <button class="btn" onclick="sendContactRequest()">Send Request</button>
+        <button class="btn secondary" onclick="closeModal()">Cancel</button>
+      </div>
+    `);
+  };
+
+  window.sendContactRequest = function() {
+    const name = document.getElementById('contactName')?.value;
+    const phone = document.getElementById('contactPhone')?.value;
+    
+    if (!name || !phone) {
+      showToast('Please fill in your name and phone number', 'error');
+      return;
+    }
+    
+    showToast('Request sent! The donor will contact you soon.', 'success');
+    closeModal();
+  };
+
+  window.callDonor = function(phone) {
+    window.location.href = 'tel:' + phone;
+  };
+
+  function initTabs() {
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabName = this.dataset.tab || this.dataset.adminTab;
+        if (!tabName) return;
+        
+        document.querySelectorAll('.tab, [data-admin-tab]').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        document.querySelectorAll('.tab-content, .admin-tab-content').forEach(content => {
+          content.style.display = 'none';
+        });
+        
+        const targetContent = document.getElementById('tab-' + tabName) || document.getElementById('admin-tab-' + tabName);
+        if (targetContent) {
+          targetContent.style.display = 'block';
+        }
+      });
+    });
+  }
+
+  const bloodRequestForm = document.getElementById('bloodRequestForm');
+  if (bloodRequestForm) {
+    bloodRequestForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = bloodRequestForm.querySelector('button[type="submit"]');
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      setTimeout(function() {
+        showToast('Blood request submitted!', 'success');
+        bloodRequestForm.reset();
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }, 800);
+    });
+  }
+
+  const saveProfileBtn = document.getElementById('saveProfileBtn');
+  if (saveProfileBtn) {
+    saveProfileBtn.addEventListener('click', function() {
+      showToast('Profile saved successfully!', 'success');
+    });
+  }
+
+  document.querySelectorAll('.filter-pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      showToast('Filter applied - connect to backend for real filtering', 'info');
+    });
+  });
+
+  window.filterByPill = function(btn) {
+    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    showToast('Filtering donors...', 'info');
+  };
+
+  window.sortDonors = function(value) {
+    showToast('Sorting by ' + value, 'info');
+  };
+
+  window.acceptRequest = function(btn) {
+    const row = btn.closest('tr');
+    row.style.opacity = '0.5';
+    btn.disabled = true;
+    showToast('Request accepted!', 'success');
+  };
+
+  window.declineRequest = function(btn) {
+    const row = btn.closest('tr');
+    row.style.opacity = '0.5';
+    btn.disabled = true;
+    showToast('Request declined', 'info');
+  };
+
+})();(function(){
+
+
   const API = {
     baseDelay: 300,
     
@@ -369,7 +668,7 @@
       }
     },
 
-    // Database simulation
+
     getDatabase() {
       return {
         donors: [
@@ -513,8 +812,7 @@
         link.classList.add('active');
       }
     });
-    
-    // Initialize all features
+  
     initSearchFilter();
     initDonorCards();
     initRequestActions();
@@ -522,9 +820,7 @@
     initModal();
   });
 
-  // ============================================
-  // Toast Notifications
-  // ============================================
+
   function showToast(message, type = 'info', duration = 3000) {
     document.querySelectorAll('.toast').forEach(t => t.remove());
     
