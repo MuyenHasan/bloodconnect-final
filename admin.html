@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BloodConnect</title>
+  <meta name="description" content="BloodConnect admin panel - manage users, blood requests, and platform settings." />
+  <meta name="keywords" content="admin panel, manage users, blood requests admin, platform administration" />
+  <title>BloodConnect - Admin Panel</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -31,28 +33,142 @@
   <main class="container">
 
   <h2>Admin Panel</h2>
+  
+  <!-- Admin Stats -->
   <div class="grid section">
-    <div class="card" style="grid-column: span 6">
-      <h3>Users</h3>
-      <table class="table">
-        <thead><tr><th>Name</th><th>Blood</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>
-          <tr><td>Akash Rahman</td><td>B-</td><td>Mirpur</td><td>
-            <span class="badge green">Active</span></td><td><a class="btn secondary" href="#">Suspend</a></td></tr>
-          <tr><td>Nusrat Jahan</td><td>O+</td><td>Uttara</td><td>
-            <span class="badge green">Active</span></td><td><a class="btn secondary" href="#">Suspend</a></td></tr>
-        </tbody>
-      </table>
+    <div class="stat animate-fade-in" style="grid-column: span 3;">
+      <div class="num"><span class="icon">👥</span><span>156</span></div>
+      <div class="small">Total Users</div>
     </div>
-    <div class="card" style="grid-column: span 6">
-      <h3>Requests</h3>
-      <table class="table">
-        <thead><tr><th>Requester</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Actions</th></tr></thead>
-        <tbody>
-          <tr><td>Rafiq</td><td>B-</td><td>Square Hospital</td><td>Emergency</td><td><a class="btn" href="#">Mark Matched</a></td></tr>
-          <tr><td>Sumaiya</td><td>B-</td><td>IBN Sina</td><td>Within 24h</td><td><a class="btn" href="#">Mark Matched</a></td></tr>
-        </tbody>
-      </table>
+    <div class="stat animate-fade-in animate-delay-1" style="grid-column: span 3;">
+      <div class="num"><span class="icon">🩸</span><span>89</span></div>
+      <div class="small">Active Requests</div>
+    </div>
+    <div class="stat animate-fade-in animate-delay-2" style="grid-column: span 3;">
+      <div class="num"><span class="icon">✅</span><span>234</span></div>
+      <div class="small">Matched This Month</div>
+    </div>
+    <div class="stat animate-fade-in animate-delay-3" style="grid-column: span 3;">
+      <div class="num"><span class="icon">📈</span><span>12%</span></div>
+      <div class="small">Growth Rate</div>
+    </div>
+  </div>
+
+  <!-- Admin Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-admin-tab="users">Users</button>
+    <button class="tab" data-admin-tab="requests">Blood Requests</button>
+    <button class="tab" data-admin-tab="hospitals">Hospitals</button>
+    <button class="tab" data-admin-tab="reports">Reports</button>
+  </div>
+
+  <!-- Users Tab -->
+  <div class="admin-tab-content" id="admin-tab-users">
+    <div class="grid section">
+      <div class="card" style="grid-column: span 12">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3>All Users</h3>
+          <div style="display: flex; gap: 8px;">
+            <input class="input" placeholder="Search users..." style="width: 200px;">
+            <button class="btn secondary">Export</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead><tr><th>ID</th><th>Name</th><th>Blood</th><th>Location</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>#001</td><td>Akash Rahman</td><td>B-</td><td>Mirpur</td><td>2024-01-15</td><td><span class="badge available">Active</span></td><td><button class="btn secondary" onclick="window.bloodConnect.showToast('User suspended', 'info')">Suspend</button></td></tr>
+            <tr><td>#002</td><td>Nusrat Jahan</td><td>O+</td><td>Uttara</td><td>2024-02-20</td><td><span class="badge available">Active</span></td><td><button class="btn secondary" onclick="window.bloodConnect.showToast('User suspended', 'info')">Suspend</button></td></tr>
+            <tr><td>#003</td><td>Mahin Ahmed</td><td>AB-</td><td>Dhanmondi</td><td>2024-03-10</td><td><span class="badge available">Active</span></td><td><button class="btn secondary" onclick="window.bloodConnect.showToast('User suspended', 'info')">Suspend</button></td></tr>
+            <tr><td>#004</td><td>Sara Khan</td><td>A+</td><td>Gulshan</td><td>2024-04-05</td><td><span class="badge unavailable">Suspended</span></td><td><button class="btn" onclick="window.bloodConnect.showToast('User activated', 'success')">Activate</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requests Tab -->
+  <div class="admin-tab-content" id="admin-tab-requests" style="display: none;">
+    <div class="grid section">
+      <div class="card" style="grid-column: span 12">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3>Blood Requests</h3>
+          <div style="display: flex; gap: 8px;">
+            <select style="width: 150px;"><option>All Status</option><option>Pending</option><option>Matched</option><option>Completed</option></select>
+            <button class="btn secondary">Export</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead><tr><th>ID</th><th>Requester</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>#R01</td><td>Rafiq</td><td><span class="badge emergency">B-</span></td><td>Square Hospital</td><td><span class="badge urgent">Emergency</span></td><td><span class="badge warning">Pending</span></td><td><button class="btn" onclick="window.bloodConnect.showToast('Marked as matched', 'success')">Mark Matched</button></td></tr>
+            <tr><td>#R02</td><td>Sumaiya</td><td><span class="badge">B-</span></td><td>IBN Sina</td><td><span class="badge warning">Within 24h</span></td><td><span class="badge available">Matched</span></td><td><button class="btn secondary" onclick="window.bloodConnect.showToast('View details', 'info')">View</button></td></tr>
+            <tr><td>#R03</td><td>Karim</td><td><span class="badge">O+</span></td><td>Apollo</td><td><span class="badge">Flexible</span></td><td><span class="badge available">Completed</span></td><td><button class="btn secondary" onclick="window.bloodConnect.showToast('View details', 'info')">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hospitals Tab -->
+  <div class="admin-tab-content" id="admin-tab-hospitals" style="display: none;">
+    <div class="grid section">
+      <div class="card" style="grid-column: span 12">
+        <h3>Partner Hospitals</h3>
+        <table class="table">
+          <thead><tr><th>Hospital Name</th><th>Location</th><th>Requests</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>Square Hospital</td><td>Dhaka</td><td>45</td><td><span class="badge available">Active</span></td><td><button class="btn secondary">Edit</button></td></tr>
+            <tr><td>IBN Sina Hospital</td><td>Dhaka</td><td>38</td><td><span class="badge available">Active</span></td><td><button class="btn secondary">Edit</button></td></tr>
+            <tr><td>Apollo Hospital</td><td>Dhaka</td><td>29</td><td><span class="badge available">Active</span></td><td><button class="btn secondary">Edit</button></td></tr>
+            <tr><td>Popular Diagnostic</td><td>Dhaka</td><td>22</td><td><span class="badge available">Active</span></td><td><button class="btn secondary">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports Tab -->
+  <div class="admin-tab-content" id="admin-tab-reports" style="display: none;">
+    <div class="grid section">
+      <div class="card" style="grid-column: span 6;">
+        <h3>Monthly Donations</h3>
+        <div style="padding: 20px;">
+          <div style="display: flex; align-items: flex-end; gap: 8px; height: 150px;">
+            <div style="flex: 1; background: var(--primary); height: 60%; border-radius: 4px;"></div>
+            <div style="flex: 1; background: var(--primary); height: 80%; border-radius: 4px;"></div>
+            <div style="flex: 1; background: var(--primary); height: 45%; border-radius: 4px;"></div>
+            <div style="flex: 1; background: var(--primary); height: 90%; border-radius: 4px;"></div>
+            <div style="flex: 1; background: var(--primary); height: 70%; border-radius: 4px;"></div>
+            <div style="flex: 1; background: var(--primary); height: 85%; border-radius: 4px;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+            <span class="small">Jan</span><span class="small">Feb</span><span class="small">Mar</span><span class="small">Apr</span><span class="small">May</span><span class="small">Jun</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="grid-column: span 6;">
+        <h3>Blood Type Distribution</h3>
+        <div style="padding: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div style="text-align: center; padding: 12px; background: var(--surface); border-radius: 8px;">
+              <div style="font-weight: 700; color: var(--primary);">O+</div>
+              <div class="small">32%</div>
+            </div>
+            <div style="text-align: center; padding: 12px; background: var(--surface); border-radius: 8px;">
+              <div style="font-weight: 700; color: var(--primary);">A+</div>
+              <div class="small">28%</div>
+            </div>
+            <div style="text-align: center; padding: 12px; background: var(--surface); border-radius: 8px;">
+              <div style="font-weight: 700; color: var(--primary);">B+</div>
+              <div class="small">24%</div>
+            </div>
+            <div style="text-align: center; padding: 12px; background: var(--surface); border-radius: 8px;">
+              <div style="font-weight: 700; color: var(--primary);">Other</div>
+              <div class="small">16%</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>

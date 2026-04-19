@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BloodConnect</title>
+  <meta name="description" content="Search for blood donors near you by blood type and location. Find available donors in your area." />
+  <meta name="keywords" content="find blood donor, search donor, blood type search, nearby donor" />
+  <title>BloodConnect - Find Donors</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -29,21 +31,46 @@
   </nav>
   <main class="container">
   <h2>Find Donors</h2>
-  <p class="help">Filter by blood type and distance. Click a card to contact a donor.</p>
+  <p class="help">Search by blood type and location. Results show distance from your area.</p>
+  
+  <!-- Search Results Header -->
+  <div class="results-header" id="resultsHeader" style="display: none;">
+    <div class="count"><span id="resultsCount">0</span> donors found</div>
+    <div class="sort">
+      <span>Sort by:</span>
+      <select id="sortSelect" onchange="sortDonors(this.value)">
+        <option value="distance">Nearest First</option>
+        <option value="donations">Most Donations</option>
+        <option value="recent">Recently Active</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Filter Pills -->
+  <div class="filter-pills">
+    <button class="filter-pill active" data-filter="all" onclick="filterByPill(this)">All Donors</button>
+    <button class="filter-pill" data-filter="available" onclick="filterByPill(this)">✅ Available Now</button>
+    <button class="filter-pill" data-filter="B-" onclick="filterByPill(this)">B-</button>
+    <button class="filter-pill" data-filter="O+" onclick="filterByPill(this)">O+</button>
+    <button class="filter-pill" data-filter="A+" onclick="filterByPill(this)">A+</button>
+    <button class="filter-pill" data-filter="AB-" onclick="filterByPill(this)">AB-</button>
+  </div>
+
   <div class="section form-grid">
     <div>
       <label>Blood Type</label>
-      <select>
-        <option>Any</option>
-        <option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+      <select id="bloodTypeFilter">
+        <option value="Any">Any Blood Type</option>
+        <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
       </select>
     </div>
     <div>
       <label>Location</label>
-      <input class="input" placeholder="Area or hospital">
+      <input class="input" id="locationFilter" placeholder="e.g., Mirpur, Dhanmondi">
     </div>
     <div>
-      <label>Radius</label>
+      <label>Distance Radius</label>
       <select>
         <option>Within 5 km</option>
         <option>Within 10 km</option>
@@ -51,46 +78,90 @@
         <option>Any distance</option>
       </select>
     </div>
-    <div style="align-self:end"><a class="btn" href="#">Search</a></div>
+    <div style="align-self:end">
+      <button class="btn" id="searchBtn">🔍 Search Donors</button>
+    </div>
   </div>
+  
   <div class="grid">
-    <div class="cards card" style="grid-column: span 7;">
-      <div style="margin-bottom:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Akash Rahman • <span class="badge">B-</span></h3>
-          <span class="badge green">Available</span>
+    <div class="cards card" style="grid-column: span 7;" id="donorsList">
+      <!-- Initial state - show all donors -->
+      <div class="donor-card">
+        <div class="header">
+          <div class="name">
+            <div class="avatar">AR</div>
+            <div>
+              <div>Akash Rahman</div>
+              <span class="small" style="color: var(--muted);">2.5 km away</span>
+            </div>
+          </div>
+          <span class="badge available">Available</span>
         </div>
-        <p class="small">Mirpur, Dhaka • Last donated: 5 months ago • 3 past donations</p>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <a class="btn" href="tel:01700000000">Call</a>
-        <a class="btn secondary" href="mailto:akash@example.com">Email</a>
-      </div>
-      <hr style="border:none;border-top:1px solid var(--border);margin:18px 0">
-      <div style="margin-bottom:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Nusrat Jahan • <span class="badge">O+</span></h3>
-          <span class="badge red">Not available</span>
+        <div class="details">
+          <span>🩸 B-</span>
+          <span>📍 Mirpur, Dhaka</span>
+          <span>📅 Last: 5 months ago</span>
+          <span>❤️ 3 donations</span>
         </div>
-        <p class="small">Uttara, Dhaka • Last donated: 2 months ago • 5 past donations</p>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <a class="btn secondary" href="#">Message</a>
-      </div>
-      <hr style="border:none;border-top:1px solid var(--border);margin:18px 0">
-      <div style="margin-bottom:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">Mahin • <span class="badge">AB-</span></h3>
-          <span class="badge green">Available</span>
+        <div class="actions">
+          <button class="btn" onclick="contactDonor(1)">Contact</button>
+          <button class="btn secondary" onclick="callDonor('01700000000')">📞 Call</button>
         </div>
-        <p class="small">Dhanmondi, Dhaka • Last donated: 7 months ago • 2 past donations</p>
       </div>
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <a class="btn" href="#">Contact</a>
+      <div class="donor-card">
+        <div class="header">
+          <div class="name">
+            <div class="avatar">NJ</div>
+            <div>
+              <div>Nusrat Jahan</div>
+              <span class="small" style="color: var(--muted);">4.2 km away</span>
+            </div>
+          </div>
+          <span class="badge unavailable">Not Available</span>
+        </div>
+        <div class="details">
+          <span>🩸 O+</span>
+          <span>📍 Uttara, Dhaka</span>
+          <span>📅 Last: 2 months ago</span>
+          <span>❤️ 5 donations</span>
+        </div>
+        <div class="actions">
+          <button class="btn secondary" disabled style="opacity:0.5">Not Available</button>
+        </div>
+      </div>
+      <div class="donor-card">
+        <div class="header">
+          <div class="name">
+            <div class="avatar">MA</div>
+            <div>
+              <div>Mahin Ahmed</div>
+              <span class="small" style="color: var(--muted);">1.8 km away</span>
+            </div>
+          </div>
+          <span class="badge available">Available</span>
+        </div>
+        <div class="details">
+          <span>🩸 AB-</span>
+          <span>📍 Dhanmondi, Dhaka</span>
+          <span>📅 Last: 7 months ago</span>
+          <span>❤️ 2 donations</span>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="contactDonor(3)">Contact</button>
+          <button class="btn secondary" onclick="callDonor('01722222222')">📞 Call</button>
+        </div>
       </div>
     </div>
     <div class="card map" style="grid-column: span 5;">
-      Map placeholder (Google Maps can go here)
+      <div style="text-align: center; padding: 40px;">
+        <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+        <p><strong>Interactive Map</strong></p>
+        <p class="small">Donor locations shown on map</p>
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 8px;">
+          <span class="badge available">Available</span>
+          <span class="badge unavailable">Busy</span>
+        </div>
+      </div>
     </div>
   </div>
   </main>

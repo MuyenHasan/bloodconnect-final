@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BloodConnect</title>
+  <meta name="description" content="BloodConnect helps patients find nearby voluntary blood donors. Free, community-powered blood donor finder." />
+  <meta name="keywords" content="blood donor, blood request, donate blood, emergency blood, blood bank" />
+  <title>BloodConnect - Find Blood Donors Fast, Save Lives</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -30,29 +32,101 @@
   </nav>
   <main class="container">
 
+  <!-- Emergency Banner -->
+  <div class="emergency-banner animate-fade-in">
+    <div class="icon">🚨</div>
+    <div class="content">
+      <h3>Emergency Blood Needed?</h3>
+      <p>Post an urgent request and we'll notify matching donors within minutes</p>
+    </div>
+    <a class="btn" href="request-blood.html" style="background: #fff; color: var(--primary);">Post Emergency Request</a>
+  </div>
+
   <section class="hero">
     <h1>Find Blood Donors Fast.<br><span style="color:var(--link-color)">Save Lives.</span></h1>
     <p class="small">Search nearby donors by blood type and location. Post a request and notify matching donors instantly.</p>
-    <div class="section searchbar" style="margin-top:14px;">
-      <select aria-label="Blood type">
-        <option>Select blood type</option>
-        <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-        <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-      </select>
-      <input class="input" placeholder="Your location (e.g., Dhanmondi, Dhaka)">
-      <a class="btn" href="find-donor.html">Find Donors</a>
+    
+    <!-- Enhanced Search Bar -->
+    <div class="searchbar animate-fade-in animate-delay-1">
+      <div class="input-group">
+        <label>Blood Type Needed</label>
+        <select aria-label="Blood type">
+          <option value="">Select blood type</option>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Your Location</label>
+        <input class="input" placeholder="Area or hospital">
+      </div>
+      <div class="input-group" style="flex: 0 0 auto;">
+        <label>&nbsp;</label>
+        <a class="btn" href="find-donor.html" style="height: 46px; display: flex; align-items: center;">Search Donors</a>
+      </div>
     </div>
 
-    <div class="section kpis" style="margin-top:22px;">
-      <div class="stat"><div class="num">342</div><div class="small">Active Donors</div></div>
-      <div class="stat"><div class="num">87</div><div class="small">Requests Today</div></div>
-      <div class="stat"><div class="num">125</div><div class="small">Successful Matches</div></div>
+    <!-- Stats KPIs -->
+    <div class="section kpis animate-fade-in animate-delay-2">
+      <div class="stat">
+        <div class="num">
+          <span class="icon">👥</span>
+          <span id="statDonors">342</span>
+        </div>
+        <div class="small">Active Donors</div>
+        <div class="progress-bar" style="margin-top: 8px;"><div class="fill" style="width: 85%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="num">
+          <span class="icon">🩸</span>
+          <span id="statRequests">87</span>
+        </div>
+        <div class="small">Requests Today</div>
+        <div class="progress-bar" style="margin-top: 8px;"><div class="fill" style="width: 65%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="num">
+          <span class="icon">✅</span>
+          <span id="statMatches">125</span>
+        </div>
+        <div class="small">Successful Matches</div>
+        <div class="progress-bar" style="margin-top: 8px;"><div class="fill" style="width: 92%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="num">
+          <span class="icon">⏱️</span>
+          <span id="statTime">15min</span>
+        </div>
+        <div class="small">Avg. Response Time</div>
+        <div class="progress-bar" style="margin-top: 8px;"><div class="fill" style="width: 78%"></div></div>
+      </div>
     </div>
-    <div class="section cta-row">
+    
+    <div class="section cta-row animate-fade-in animate-delay-3">
       <a class="btn" href="dashboard.html">Become a Donor</a>
       <a class="btn secondary" href="about.html">Learn about donation</a>
+      <a class="btn secondary" href="admin.html">View Admin Panel</a>
     </div>
   </section>
+
+  <!-- Quick Info Cards -->
+  <div class="grid section">
+    <div class="card animate-fade-in animate-delay-1" style="grid-column: span 4;">
+      <h3>🔥 Emergency Requests</h3>
+      <p class="small">View urgent blood needs in your area that require immediate attention.</p>
+      <a class="btn secondary" href="find-donor.html" style="margin-top: 8px;">View Emergency</a>
+    </div>
+    <div class="card animate-fade-in animate-delay-2" style="grid-column: span 4;">
+      <h3>📊 Donation Stats</h3>
+      <p class="small">Track your donation history and impact on the community.</p>
+      <a class="btn secondary" href="dashboard.html" style="margin-top: 8px;">View Dashboard</a>
+    </div>
+    <div class="card animate-fade-in animate-delay-3" style="grid-column: span 4;">
+      <h3>🏥 Partner Hospitals</h3>
+      <p class="small">BloodConnect works with 50+ hospitals across Bangladesh.</p>
+      <a class="btn secondary" href="about.html" style="margin-top: 8px;">Learn More</a>
+    </div>
+  </div>
   </main>
   <footer class="footer">
     <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>

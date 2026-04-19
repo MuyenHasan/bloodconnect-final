@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BloodConnect</title>
+  <meta name="description" content="Post a blood request and notify matching donors near your hospital instantly." />
+  <meta name="keywords" content="request blood, blood need, emergency blood request, post blood request" />
+  <title>BloodConnect - Request Blood</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -32,7 +34,7 @@
 
   <h2>Request Blood</h2>
   <p class="help">Post a request. Matching donors near your hospital will be notified.</p>
-  <form class="section" onsubmit="alert('This is a prototype. In a real app this would submit to the server.'); return false;">
+  <form id="bloodRequestForm" class="section">
     <div class="form-grid">
       <div><label>Your Name</label><input class="input" required placeholder="Full Name"></div>
       <div><label>Contact Number</label><input class="input" required placeholder="e.g., 017XXXXXXXX"></div>

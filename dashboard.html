@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BloodConnect</title>
+  <meta name="description" content="Manage your donor profile, view incoming requests, and track your donation history." />
+  <meta name="keywords" content="donor dashboard, manage profile, donation history, blood donor profile" />
+  <title>BloodConnect - Donor Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -30,42 +32,136 @@
   </nav>
   <main class="container">
     <h2>Donor Dashboard</h2>
-  <div class="grid section">
-    <div class="card" style="grid-column: span 5">
-      <h3>Your Profile</h3>
-      <div class="form-grid">
-        <div><label>Name</label><input class="input" value="Your Name"></div>
-        <div><label>Blood Type</label>
-          <select><option>O+</option><option>O-</option><option selected>B-</option></select>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="profile">My Profile</button>
+      <button class="tab" data-tab="requests">Incoming Requests</button>
+      <button class="tab" data-tab="history">Donation History</button>
+      <button class="tab" data-tab="notifications">Notifications</button>
+    </div>
+
+    <!-- Profile Tab -->
+    <div class="tab-content" id="tab-profile">
+      <div class="grid section">
+        <div class="card" style="grid-column: span 5">
+          <h3>Your Profile</h3>
+          <div class="form-grid">
+            <div><label>Full Name</label><input class="input" id="profileName" value="Your Name"></div>
+            <div><label>Blood Type</label>
+              <select id="profileBlood"><option>O+</option><option>O-</option><option selected>B-</option><option>A+</option><option>A-</option><option>AB+</option><option>AB-</option></select>
+            </div>
+            <div><label>Location</label><input class="input" id="profileLocation" value="Dhanmondi, Dhaka"></div>
+            <div><label>Phone</label><input class="input" id="profilePhone" value="017XXXXXXXX"></div>
+            <div><label>Availability</label>
+              <select id="profileAvailability">
+                <option selected>Available</option>
+                <option>Not available</option>
+              </select>
+            </div>
+            <div><label>Email</label><input class="input" placeholder="your@email.com"></div>
+          </div>
+          <div class="section cta-row" style="margin-top:12px">
+            <button class="btn" id="saveProfileBtn">Save Changes</button>
+            <button class="btn secondary" onclick="window.bloodConnect.showToast('Profile preview mode', 'info')">Preview Public Profile</button>
+          </div>
         </div>
-        <div><label>Location</label><input class="input" value="Dhanmondi, Dhaka"></div>
-        <div><label>Phone</label><input class="input" value="017XXXXXXXX"></div>
-        <div><label>Availability</label><select><option selected>Available</option><option>Not available</option></select></div>
-      </div>
-      <div class="section cta-row" style="margin-top:12px">
-        <a class="btn" href="#">Save Changes</a>
+        <div class="card" style="grid-column: span 7">
+          <h3>Your Stats</h3>
+          <div class="grid" style="gap: 12px;">
+            <div class="stat" style="grid-column: span 4;">
+              <div class="num">3</div>
+              <div class="small">Total Donations</div>
+            </div>
+            <div class="stat" style="grid-column: span 4;">
+              <div class="num">5</div>
+              <div class="small">Months Since Last</div>
+            </div>
+            <div class="stat" style="grid-column: span 4;">
+              <div class="num">12</div>
+              <div class="small">Lives Impacted</div>
+            </div>
+          </div>
+          <div style="margin-top: 20px;">
+            <p><strong>Donation Eligibility</strong></p>
+            <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+            <p class="small" style="margin-top: 4px;">You can donate in 1 month</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card" style="grid-column: span 7">
-      <h3>Incoming Requests</h3>
-      <div style="overflow:auto">
-      <table class="table">
-        <thead><tr><th>Patient</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Actions</th></tr></thead>
-        <tbody><tr><td>Rafiq</td><td><span class="badge">B-</span></td><td>Square Hospital</td><td>Emergency</td>
-            <td><a class="btn" href="#">Accept</a> <a class="btn secondary" href="#">Decline</a></td></tr>
-          <tr><td>Sumaiya</td><td><span class="badge">B-</span></td><td>IBN Sina, Dhanmondi</td><td>Within 24h</td>
-            <td><a class="btn" href="#">Accept</a> <a class="btn secondary" href="#">Decline</a></td></tr></tbody>
-      </table>
-      </div></div></div>
-  <div class="card section">
-    <h3>Donation History</h3>
-    <table class="table">
-      <thead><tr><th>Date</th><th>Hospital</th><th>Patient</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>2025-04-12</td><td>Popular Diagnostic, Dhanmondi</td><td>—</td><td><span class="badge">Completed</span></td></tr>
-        <tr><td>2024-11-03</td><td>BSMMU</td><td>—</td><td><span class="badge">Completed</span></td></tr>
-      </tbody>
-    </table></div>
+
+    <!-- Requests Tab -->
+    <div class="tab-content" id="tab-requests" style="display: none;">
+      <div class="card section">
+        <h3>Incoming Requests</h3>
+        <div style="overflow:auto">
+        <table class="table">
+          <thead><tr><th>Patient</th><th>Blood</th><th>Hospital</th><th>Urgency</th><th>Time</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Rafiq</td>
+              <td><span class="badge emergency">B-</span></td>
+              <td>Square Hospital</td>
+              <td><span class="badge urgent">Emergency</span></td>
+              <td>2 hours ago</td>
+              <td>
+                <button class="btn" onclick="acceptRequest(this)">Accept</button> 
+                <button class="btn secondary" onclick="declineRequest(this)">Decline</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Sumaiya</td>
+              <td><span class="badge">B-</span></td>
+              <td>IBN Sina, Dhanmondi</td>
+              <td><span class="badge warning">Within 24h</span></td>
+              <td>5 hours ago</td>
+              <td>
+                <button class="btn" onclick="acceptRequest(this)">Accept</button> 
+                <button class="btn secondary" onclick="declineRequest(this)">Decline</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab -->
+    <div class="tab-content" id="tab-history" style="display: none;">
+      <div class="card section">
+        <h3>Donation History</h3>
+        <table class="table">
+          <thead><tr><th>Date</th><th>Hospital</th><th>Patient</th><th>Blood Type</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>2025-04-12</td><td>Popular Diagnostic, Dhanmondi</td><td>—</td><td>B-</td><td><span class="badge available">Completed</span></td></tr>
+            <tr><td>2024-11-03</td><td>BSMMU</td><td>—</td><td>B-</td><td><span class="badge available">Completed</span></td></tr>
+            <tr><td>2024-06-15</td><td>Apollo Hospital</td><td>—</td><td>B-</td><td><span class="badge available">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notifications Tab -->
+    <div class="tab-content" id="tab-notifications" style="display: none;">
+      <div class="card section">
+        <h3>Notifications</h3>
+        <div id="notificationsList">
+          <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+            <p style="margin: 0 0 4px;"><strong>New blood request nearby</strong></p>
+            <p class="small">B- blood needed at Square Hospital • 2 hours ago</p>
+          </div>
+          <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+            <p style="margin: 0 0 4px;"><strong>Thank you for your donation!</strong></p>
+            <p class="small">Your blood saved lives at Popular Diagnostic • 1 week ago</p>
+          </div>
+          <div style="padding: 16px;">
+            <p style="margin: 0 0 4px;"><strong>Profile updated</strong></p>
+            <p class="small">Your profile changes have been saved • 2 weeks ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <footer class="footer">
     <div class="inner container">© 2025 BloodConnect — Community blood donor finder.</div>
